@@ -1,278 +1,124 @@
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Web Tools — Utility Kit</title>
-  <meta name="description" content="Kumpulan tool kecil: QR generator, Text converter, Kalkulator, Random Quote & Random Cat. Siap di-host di GitHub Pages." />
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c3aed; --glass: rgba(255,255,255,0.04);
-      --glass-2: rgba(255,255,255,0.02);
-      --radius:14px; --maxw:1100px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#071229 0%, #081025 60%); color:#e6eef8; -webkit-font-smoothing:antialiased;
-      display:flex; align-items:center; justify-content:center; padding:48px;
-    }
-    .wrap{width:100%; max-width:var(--maxw)}
-    header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:22px}
-    .brand{display:flex; gap:14px; align-items:center}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
-    h1{font-size:20px;margin:0}
-    p.lead{margin:0;color:var(--muted);font-size:13px}
-    .controls{display:flex;gap:10px;align-items:center}
-    .search{background:var(--glass); padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    @media (max-width:880px){.grid{grid-template-columns:1fr}}
-
-    .card{background:linear-gradient(180deg,var(--card), rgba(10,14,20,0.6));border-radius:var(--radius);padding:18px;border:1px solid var(--glass-2); box-shadow: 0 6px 18px rgba(2,6,23,0.6)}
-    .card h3{margin:0 0 8px 0;font-size:16px}
-    .muted{color:var(--muted);font-size:13px}
-
-    .row{display:flex;gap:10px;align-items:center}
-    input[type=text], textarea, select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
-    button{background:var(--accent);border:none;padding:10px 12px;border-radius:10px;color:white;font-weight:600;cursor:pointer}
-    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04)}
-    small.note{display:block;color:var(--muted);margin-top:6px}
-
-    .tools-footer{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:10px}
-    .result-preview{margin-top:10px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
-    .qr-wrap{display:flex;gap:12px;align-items:center}
-    img.qr{width:160px;height:160px;background:#fff;padding:8px;border-radius:8px}
-
-    .quote{font-style:italic;font-size:15px}
-    .cat-img{width:100%;height:260px;object-fit:cover;border-radius:10px}
-
-    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
-
-    /* tiny helpers */
-    .flex-col{display:flex;flex-direction:column}
-    .gap-8{gap:8px}
-    .space-between{justify-content:space-between}
-    .small{font-size:13px}
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Philosophy Quotes</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Georgia", serif;
+            background: #0e0e0e;
+            color: #e4e4e4;
+        }
+        header {
+            padding: 30px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #f5d37d;
+        }
+        .quote-box {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 215, 130, 0.2);
+        }
+        .quote-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .quote-text {
+            font-size: 22px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: none;
+            background: #f5d37d;
+            color: #000;
+            font-weight: bold;
+            border-radius: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #ffe9b4;
+        }
+    </style>
 </head>
 <body>
-  <main class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">WT</div>
-        <div>
-          <h1>Web Tools — Utility Kit</h1>
-          <p class="lead">Kumpulan tool kecil: QR generator, text converter, kalkulator, random quote & random cat. Gratis & ringan untuk GitHub Pages.</p>
-        </div>
-      </div>
-      <div class="controls">
-        <input class="search" id="globalSearch" placeholder="Cari tool (mis. qr, text, cat)..." />
-        <button id="darkToggle" class="ghost">Toggle Mode</button>
-      </div>
-    </header>
 
-    <section class="grid">
-      <!-- QR Generator -->
-      <div class="card" id="card-qr">
-        <h3>QR Code Generator</h3>
-        <p class="muted">Masukkan teks atau URL lalu generate QR. (Menggunakan Google Chart API untuk gambar QR.)</p>
-        <div style="margin-top:10px" class="row">
-          <input id="qrText" type="text" placeholder="https://github.com/username/repo" />
-          <button id="genQr">Generate</button>
-        </div>
-        <div class="tools-footer">
-          <div class="qr-wrap">
-            <img id="qrImg" class="qr" src="https://chart.googleapis.com/chart?cht=qr&chs=160x160&chl=" alt="QR" />
-            <div>
-              <button id="downloadQr" class="ghost">Download PNG</button>
-              <small class="note">QR akan tampil di samping.</small>
-            </div>
-          </div>
-        </div>
-      </div>
+<header>Philosophical Reflections</header>
 
-      <!-- Text Converter -->
-      <div class="card" id="card-text">
-        <h3>Text Converter</h3>
-        <p class="muted">Ubah huruf: UPPERCASE, lowercase, Title Case, Reverse, dan copy cepat.</p>
-        <textarea id="textIn" rows="5" placeholder="Masukkan teks di sini..."></textarea>
-        <div style="margin-top:8px" class="row">
-          <select id="transformType">
-            <option value="upper">UPPERCASE</option>
-            <option value="lower">lowercase</option>
-            <option value="title">Title Case</option>
-            <option value="reverse">Reverse</option>
-          </select>
-          <button id="doTransform">Transform</button>
-          <button id="copyText" class="ghost">Copy</button>
-        </div>
-        <small class="note">Gunakan untuk caption, prompt, atau koreksi cepat.</small>
-      </div>
+<div class="quote-box">
+    <img id="photo" class="quote-image" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Nietzsche187a.jpg" />
+    <div id="quote" class="quote-text">
+        "Hidup hanya bisa dipahami ke belakang, tetapi harus dijalani ke depan." — Kierkegaard
+    </div>
+    <button class="btn" onclick="generateQuote()">Generate Quote</button>
+</div>
 
-      <!-- Calculator -->
-      <div class="card" id="card-calc">
-        <h3>Quick Calculator</h3>
-        <p class="muted">Ketik ekspresi matematika sederhana (mis. 12*3+4/2) lalu tekan Enter.</p>
-        <input id="calcInput" type="text" placeholder="ex: (12+4)/2 * 3" />
-        <div style="margin-top:10px" class="row space-between">
-          <div class="muted" id="calcResult">Result: —</div>
-          <div>
-            <button id="calcEval">Hitung</button>
-            <button id="calcClear" class="ghost">Clear</button>
-          </div>
-        </div>
-        <small class="note">Hanya operasi dasar: + - * / % (no imports). Evaluasi aman via parser sederhana.</small>
-      </div>
-
-      <!-- Random Quote & Cat -->
-      <div class="card" id="card-random">
-        <h3>Random Quote & Random Cat</h3>
-        <p class="muted">Ambil quotes motivasi acak atau lihat gambar kucing acak.</p>
-        <div class="row gap-8">
-          <div style="flex:1">
-            <div class="quote" id="quoteText">Tekan "Random Quote" untuk mendapatkan quote.</div>
-            <div style="margin-top:8px" class="row">
-              <button id="randQuote">Random Quote</button>
-              <button id="shareQuote" class="ghost">Copy Quote</button>
-            </div>
-          </div>
-          <div style="flex:1">
-            <img id="catImg" class="cat-img" src="https://cataas.com/cat?random=1" alt="random cat" />
-            <div style="margin-top:8px" class="row">
-              <button id="newCat">New Cat</button>
-              <button id="downloadCat" class="ghost">Download</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Utilities / Small Tools -->
-      <div class="card" id="card-tools">
-        <h3>Utilities</h3>
-        <p class="muted">Beberapa helper: text file export, lorem generator, and quick timestamp.</p>
-        <div style="margin-top:8px" class="row">
-          <input id="fileText" type="text" placeholder="Teks buat file .txt" />
-          <button id="saveTxt">Save .txt</button>
-        </div>
-        <div style="margin-top:8px" class="row">
-          <button id="genLorem">Generate Lorem (1 para)</button>
-          <button id="getTime" class="ghost">Timestamp</button>
-          <div style="margin-left:6px;color:var(--muted);font-size:13px" id="timeOut">—</div>
-        </div>
-      </div>
-
-    </section>
-
-    <footer>
-      Built with ♥ — Simple, lightweight, and perfect for GitHub Pages. Fork & customize.
-    </footer>
-  </main>
-
-  <script>
-    // Small helper functions
-    const $ = (s) => document.querySelector(s);
-    const $$ = (s) => document.querySelectorAll(s);
-
-    // QR
-    const qrText = $('#qrText');
-    const qrImg = $('#qrImg');
-    $('#genQr').addEventListener('click', ()=>{
-      const v = qrText.value.trim();
-      const encoded = encodeURIComponent(v || 'https://github.com');
-      qrImg.src = `https://chart.googleapis.com/chart?cht=qr&chs=160x160&chl=${encoded}`;
-    });
-    $('#downloadQr').addEventListener('click', ()=>{
-      const url = qrImg.src;
-      const a = document.createElement('a'); a.href = url; a.download = 'qr.png'; document.body.appendChild(a); a.click(); a.remove();
-    });
-
-    // Text transform
-    function titleCase(s){return s.toLowerCase().split(' ').map(w=> w.charAt(0).toUpperCase()+w.slice(1)).join(' ')}
-    $('#doTransform').addEventListener('click', ()=>{
-      const t = $('#textIn').value || '';
-      const mode = $('#transformType').value;
-      let out='';
-      if(mode==='upper') out = t.toUpperCase();
-      if(mode==='lower') out = t.toLowerCase();
-      if(mode==='title') out = titleCase(t);
-      if(mode==='reverse') out = t.split('').reverse().join('');
-      $('#textIn').value = out;
-    });
-    $('#copyText').addEventListener('click', async ()=>{
-      try{ await navigator.clipboard.writeText($('#textIn').value); alert('Teks disalin!') }catch(e){alert('Gagal copy')}
-    });
-
-    // Calculator - simple parser
-    const safeEval = (expr)=>{
-      // allow only digits, spaces, parentheses and basic operators
-      if(!/^[0-9+\-*/().%\s]+$/.test(expr)) throw new Error('Invalid chars');
-      // avoid consecutive operators except for -
-      return Function('return ('+expr+')')();
+<script>
+const quotes = [
+    {
+        text: "Hidup hanya bisa dipahami ke belakang, tetapi harus dijalani ke depan. — Kierkegaard",
+        img: "https://upload.wikimedia.org/wikipedia/commons/4/49/S%C3%B8ren_Kierkegaard_%281813-1855%29_-_%28cropped%29.jpg"
+    },
+    {
+        text: "Jalan menuju kebijaksanaan dimulai dengan mengakui ketidaktahuan. — Socrates",
+        img: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Socrates_Louvre.jpg"
+    },
+    {
+        text: "Siapa yang punya alasan untuk hidup, mampu menanggung hampir segala bagaimana. — Nietzsche",
+        img: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Nietzsche187a.jpg"
+    },
+    {
+        text: "Ketenangan datang ketika kamu berhenti peduli pada hal yang tidak bisa kamu kendalikan. — Marcus Aurelius",
+        img: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Marcus_Aurelius_Glyptothek_Munich.jpg"
+    },
+    {
+        text: "Pikiran adalah segalanya; apa yang kamu pikirkan, itulah kamu. — Buddha",
+        img: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Buddha_in_Sarnath_Museum_%28Dhammajak_Mutra%29.jpg"
+    },
+    {
+        text: "Manusia adalah makhluk yang harus mengatasi dirinya untuk menemukan dirinya. — Heidegger",
+        img: "https://upload.wikimedia.org/wikipedia/commons/2/22/Heidegger_2_%281960%29.jpg"
+    },
+    {
+        text: "Kebebasan bukan tanpa batasan, tetapi kemampuan memilih batasanmu. — Sartre",
+        img: "https://upload.wikimedia.org/wikipedia/commons/e/e4/Jean-Paul_Sartre_FP.jpg"
+    },
+    {
+        text: "Pengetahuan tanpa tindakan adalah kosong. — Confucius",
+        img: "https://upload.wikimedia.org/wikipedia/commons/0/00/Kongzi.jpg"
+    },
+    {
+        text: "Kita hidup seperti kita akan hidup selamanya, padahal waktu sangat singkat. — Seneca",
+        img: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Duble_herma_of_Socrates_and_Seneca_Antikensammlung_Berlin_%28Segna-Seneca%29_02.jpg"
+    },
+    {
+        text: "Hidup adalah pencarian makna dalam kekacauan yang tidak pernah berhenti. — Camus",
+        img: "https://upload.wikimedia.org/wikipedia/commons/0/09/Albert_Camus%2C_great_writer_and_philosopher%2C_in_a_cafe_in_Paris%2C_1950s.jpg"
     }
-    $('#calcEval').addEventListener('click', ()=>{
-      const v = $('#calcInput').value.trim();
-      if(!v){$('#calcResult').textContent = 'Result: —'; return}
-      try{ const r = safeEval(v); $('#calcResult').textContent = 'Result: '+ r }catch(e){$('#calcResult').textContent = 'Error' }
-    });
-    $('#calcClear').addEventListener('click', ()=>{ $('#calcInput').value=''; $('#calcResult').textContent='Result: —' });
-    $('#calcInput').addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ $('#calcEval').click() } });
+];
 
-    // Random Quote
-    const quotes = [
-      'Jangan menunggu; waktu tidak akan pernah tepat. — Napoleon Hill',
-      'Kerja keras mengalahkan bakat ketika bakat tidak bekerja keras. — Unknown',
-      'Yang terpenting bukan seberapa lama kita hidup, tapi seberapa baik kita hidup. — Seneca',
-      'Kegagalan adalah kesempatan untuk memulai lagi dengan lebih cerdas. — Henry Ford',
-      'Jadilah perubahan yang ingin kamu lihat di dunia. — Mahatma Gandhi'
-    ];
-    $('#randQuote').addEventListener('click', ()=>{
-      const q = quotes[Math.floor(Math.random()*quotes.length)]; $('#quoteText').textContent = q;
-    });
-    $('#shareQuote').addEventListener('click', async ()=>{ try{ await navigator.clipboard.writeText($('#quoteText').textContent); alert('Quote disalin!') }catch(e){alert('Gagal copy')} });
+function generateQuote() {
+    const random = Math.floor(Math.random() * quotes.length);
+    document.getElementById("quote").innerHTML = quotes[random].text;
+    document.getElementById("photo").src = quotes[random].img;
+}
+</script>
 
-    // Random Cat
-    $('#newCat').addEventListener('click', ()=>{ const t = Date.now(); $('#catImg').src = `https://cataas.com/cat?${t}` });
-    $('#downloadCat').addEventListener('click', ()=>{ const src = $('#catImg').src; const a = document.createElement('a'); a.href = src; a.download = 'cat.jpg'; document.body.appendChild(a); a.click(); a.remove(); });
-
-    // Small utilities
-    $('#saveTxt').addEventListener('click', ()=>{
-      const txt = $('#fileText').value || 'empty';
-      const blob = new Blob([txt], {type:'text/plain'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'text.txt'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),5000);
-    });
-    $('#genLorem').addEventListener('click', ()=>{
-      const l = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.';
-      $('#fileText').value = l;
-    });
-    $('#getTime').addEventListener('click', ()=>{ $('#timeOut').textContent = new Date().toLocaleString('id-ID') });
-
-    // Small search filter
-    $('#globalSearch').addEventListener('input', (e)=>{
-      const v = e.target.value.toLowerCase();
-      const cards = ['card-qr','card-text','card-calc','card-random','card-tools'];
-      cards.forEach(id=>{
-        const el = document.getElementById(id);
-        const text = el.innerText.toLowerCase();
-        el.style.display = text.includes(v) ? 'block' : 'none';
-      })
-    });
-
-    // Dark toggle - actually invert scheme for fun
-    $('#darkToggle').addEventListener('click', ()=>{
-      const r = document.documentElement;
-      if(r.style.getPropertyValue('--bg') === ''){
-        // fallback toggle by switching root bg color
-      }
-      // tiny visual toggle: swap accent
-      const a = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-      document.documentElement.style.setProperty('--accent', a === '#7c3aed' ? '#06b6d4' : '#7c3aed');
-      alert('Toggle complete — accent changed!')
-    });
-
-    // Small UX: safety for clipboard fallback
-    document.addEventListener('copy', (e)=>{})
-  </script>
 </body>
 </html>
